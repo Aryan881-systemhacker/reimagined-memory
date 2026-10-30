@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f2f1ed">
+<meta name="description" content="Aryan — Creative Developer and Cybersecurity Learner">
+<title>ARYAN — Creative Developer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f2f1ed;
+  --ink:#191919;
+  --muted:#77766f;
+  --line:#d8d6cf;
+  --panel:#e4e2dc;
+  --mono:"DM Mono",monospace;
+  --font:"Space Grotesk",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1160px,calc(100% - 44px));margin:auto}
+.eyebrow{font:10px var(--mono);letter-spacing:1.5px;color:var(--muted);margin-bottom:20px}
+.grain{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E")}
+
+/* NAVIGATION */
+header{
+ position:fixed;z-index:100;top:0;left:0;width:100%;
+ display:flex;align-items:center;justify-content:space-between;
+ gap:24px;padding:17px 5%;
+ background:rgba(242,241,237,.76);
+ backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+ border-bottom:1px solid rgba(25,25,25,.10);
+ animation:drop .8s ease both;
+ transition:background .3s,box-shadow .3s;
+}
+header.scrolled{background:rgba(242,241,237,.94);box-shadow:0 8px 30px #0000000c}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.logo{
+ width:43px;height:43px;background:var(--ink);color:var(--bg);
+ display:grid;place-items:center;font-size:25px;font-weight:700;
+ transition:transform .4s;
+}
+.brand:hover .logo{transform:rotate(-8deg)}
+.brand-info{display:grid;gap:4px}
+.brand-info strong{font-size:17px;letter-spacing:2px}
+.brand-info small{font:9px var(--mono);letter-spacing:.7px;color:var(--muted)}
+nav{display:flex;align-items:center;gap:clamp(16px,3vw,38px)}
+nav a{font:10px var(--mono);letter-spacing:.7px;text-transform:uppercase;color:#65645f;position:relative}
+nav a:not(.cta):after{content:"";position:absolute;bottom:-7px;left:0;width:100%;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .3s}
+nav a:hover,nav a.active{color:var(--ink)}
+nav a:hover:after,nav a.active:after{transform:scaleX(1);transform-origin:left}
+nav .cta{background:var(--ink);color:white;padding:15px 17px;display:flex;gap:22px;align-items:center;transition:background .25s}
+nav .cta:hover{background:#444}
+nav .cta span{font-size:17px}
+.menu{display:none;background:transparent;border:1px solid var(--line);width:43px;height:43px;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.menu span{width:18px;height:1px;background:var(--ink);transition:.25s}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:125px;display:flex;flex-direction:column}
+.meta,.hero-footer,.art-meta{font:9px var(--mono);letter-spacing:1px;color:var(--muted);display:flex;align-items:center;gap:12px}
+.meta{padding-bottom:18px;border-bottom:1px solid var(--line)}
+.dot{width:7px;height:7px;border-radius:50%;background:#555}
+.meta .right{margin-left:auto}
+.hero-grid{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:7%;align-items:center;padding:55px 0}
+h1{font-size:clamp(58px,8.4vw,112px);line-height:.91;letter-spacing:-.085em;font-weight:600}
+h1 em,.section-title em,.contact-title em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.07em}
+.period{color:#88867f}
+.intro{max-width:440px;color:#66645f;font-size:15px;line-height:1.8;margin:28px 0}
+.actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:28px;padding:16px 18px;font:10px var(--mono);background:var(--ink);color:white;transition:transform .25s,background .25s}
+.btn:hover{transform:translateY(-3px);background:#444}
+.link{font:10px var(--mono);border-bottom:1px solid var(--line);padding:9px 0}
+.link span{margin-left:12px}
+.art{position:relative;min-height:410px;background:#deddd7;border:1px solid #cfcdc5;display:grid;place-items:center;overflow:hidden}
+.art:before{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent 49.7%,#0000000c 50%,transparent 50.3%);background-size:35px 35px}
+.orbit{position:absolute;width:72%;aspect-ratio:1;border:1px solid #1919194d;border-radius:50%;animation:spin 30s linear infinite}
+.orbit.two{width:91%;border-style:dashed;animation-direction:reverse}
+.core{width:145px;height:145px;background:var(--ink);color:white;display:grid;place-items:center;align-content:center;gap:8px;z-index:1;box-shadow:12px 14px #00000016;transform:rotate(-7deg);animation:float 5s ease-in-out infinite}
+.core strong{font-size:72px;line-height:.8}
+.core small{font:9px var(--mono);letter-spacing:3px}
+.art-label{position:absolute;z-index:2;background:var(--bg);border:1px solid var(--line);padding:9px;font:9px var(--mono);letter-spacing:.7px}
+.art-label.one{top:25%;left:5%;transform:rotate(-5deg)}
+.art-label.two{bottom:25%;right:5%;transform:rotate(4deg)}
+.art-meta{position:absolute;left:15px;right:15px;justify-content:space-between}
+.art-meta.top{top:15px}.art-meta.bottom{bottom:15px}
+.hero-footer{border-top:1px solid var(--line);padding:20px 0 25px}
+.scroll-line{width:65px;height:1px;background:var(--ink)}
+
+/* COMMON SECTIONS */
+section.block{padding:115px 0}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:50px}
+.section-title{font-size:clamp(43px,6vw,76px);line-height:.97;letter-spacing:-.075em;font-weight:500}
+.note{max-width:320px;font-size:13px;line-height:1.8;color:var(--muted)}
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:45px 22px}
+.project:last-child{grid-column:1/-1}
+.project-visual{height:310px;display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid #00000014}
+.visual-a{background:#d8d6cf}.visual-b{background:#262624;color:#f2f1ed}.visual-c{background:#d2d0c9}
+.project-number{position:absolute;left:15px;top:15px;font:9px var(--mono);letter-spacing:1px}
+.browser{width:70%;background:#f7f6f1;box-shadow:12px 14px #00000012;transform:rotate(-3deg);transition:.4s}
+.project:hover .browser{transform:rotate(0) scale(1.03)}
+.browser-top{padding:10px;border-bottom:1px solid #ddd;display:flex;gap:5px}
+.browser-top i{width:5px;height:5px;border-radius:50%;background:#aaa}
+.browser-content{padding:22px}
+.browser-content small{font:9px var(--mono);color:#777}
+.browser-content strong{display:block;font-size:38px;line-height:.95;letter-spacing:-2px;margin:18px 0}
+.fake-search{border:1px solid #ddd;padding:9px;font:9px var(--mono);color:#777;display:flex;justify-content:space-between}
+.terminal{width:78%;padding:23px;background:#181818;color:#ddd;border:1px solid #555;box-shadow:10px 12px #0003;transform:rotate(2deg);transition:.4s;font:10px var(--mono)}
+.project:hover .terminal{transform:rotate(0) translateY(-5px)}
+.terminal-top{padding-bottom:15px;border-bottom:1px solid #555;margin-bottom:17px;color:#aaa;display:flex;justify-content:space-between}
+.terminal p{line-height:2}
+.terminal b{color:white}
+.paper{width:68%;height:235px;padding:22px;background:#f7f6f1;display:flex;flex-direction:column;box-shadow:10px 12px #0002;transform:rotate(-2deg);transition:.4s}
+.project:hover .paper{transform:rotate(0) scale(1.02)}
+.paper small{font:9px var(--mono);letter-spacing:2px}
+.paper strong{font-size:clamp(27px,4vw,43px);line-height:.95;letter-spacing:-2px;margin:auto 0}
+.paper hr{border:0;border-top:1px solid #ccc;margin-bottom:12px}
+.project-info{padding-top:17px;display:flex;justify-content:space-between;gap:15px}
+.project-info h3{font-size:24px;letter-spacing:-1px;margin-bottom:8px}
+.project-info p:not(.eyebrow){max-width:430px;color:var(--muted);font-size:13px;line-height:1.75}
+.arrow{font-size:23px}
+.disclaimer{font:9px var(--mono);color:var(--muted);margin-top:28px;line-height:1.8}
+
+/* SKILLS */
+#skills{background:#e4e2dc;border-block:1px solid var(--line)}
+.skill-list{border-top:1px solid #c5c3bc}
+.skill-row{display:grid;grid-template-columns:55px 1fr 30px;gap:20px;padding:27px 0;border-bottom:1px solid #c5c3bc;transition:padding .25s}
+.skill-row:hover{padding-left:10px;padding-right:10px}
+.skill-num{font:10px var(--mono);color:var(--muted);padding-top:6px}
+.skill-row h3{font-size:clamp(21px,3vw,31px);font-weight:500;letter-spacing:-1px;margin-bottom:7px}
+.skill-row p{font-size:13px;line-height:1.8;color:#68665f;max-width:650px}
+.skill-arrow{font-size:22px;transition:transform .25s}
+.skill-row:hover .skill-arrow{transform:translate(3px,-3px)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.tags span{padding:10px;border:1px solid #c2c0b9;font:9px var(--mono)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:10%;align-items:center}
+.stamp{width:100%;max-width:290px;aspect-ratio:1;background:#deddd7;border:1px solid #cfcdc5;display:grid;place-items:center;position:relative;overflow:hidden}
+.stamp:before,.stamp:after{content:"";position:absolute;width:150%;height:1px;background:#c4c2bb;transform:rotate(45deg)}
+.stamp:after{transform:rotate(-45deg)}
+.stamp strong{z-index:1;font-size:105px;letter-spacing:-10px}
+.stamp small{z-index:1;position:absolute;bottom:23px;font:9px var(--mono);letter-spacing:2px}
+.about-copy h2{font-size:clamp(38px,5vw,63px);line-height:1;letter-spacing:-.065em;font-weight:500;margin-bottom:25px}
+.about-copy>p:not(.eyebrow){font-size:14px;line-height:1.9;color:#68665f;margin-bottom:15px;max-width:590px}
+.about-copy .link{display:inline-block;margin-top:12px}
+
+/* FAQ */
+#faq{background:#e8e7e1;border-block:1px solid var(--line)}
+.faq-list{border-top:1px solid #c8c6bf}
+details{border-bottom:1px solid #c8c6bf}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font-size:16px;font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary span{font-size:23px;font-weight:300;transition:transform .25s}
+details[open] summary span{transform:rotate(45deg)}
+details p{max-width:700px;color:#68665f;font-size:13px;line-height:1.8;padding:0 20px 22px 0}
+
+/* CONTACT */
+.contact-top{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.contact-top .eyebrow{margin:0}
+.contact-top>span{font:9px var(--mono);color:var(--muted)}
+.contact-title{font-size:clamp(53px,9vw,108px);line-height:.95;letter-spacing:-.08em;font-weight:500;margin:55px 0 35px}
+.email{display:inline-flex;align-items:center;gap:25px;font-size:clamp(19px,3vw,30px);border-bottom:1px solid var(--ink);padding-bottom:12px}
+.email span{transition:transform .25s}
+.email:hover span{transform:translate(4px,-4px)}
+.contact-note{font:10px var(--mono);color:var(--muted);margin-top:13px}
+footer{background:#242422;color:#f2f1ed;padding:27px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;font:9px var(--mono);letter-spacing:.7px}
+.footer-brand{font:700 18px var(--font);letter-spacing:2px}
+footer p{color:#aaa}
+.footer-links{display:flex;gap:17px}
+.footer-links a{color:#ccc}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes drop{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@media(max-width:800px){
+ header{padding:12px 22px}.menu{display:flex}
+ nav{position:absolute;top:100%;left:0;right:0;padding:12px 22px 22px;background:rgba(242,241,237,.97);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--line);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s}
+ nav.open{opacity:1;visibility:visible;transform:translateY(0)}
+ nav a{padding:15px 0;border-bottom:1px solid var(--line)}
+ nav .cta{margin-top:12px;padding:15px}
+ .hero-grid{grid-template-columns:1fr;gap:35px;padding:48px 0 35px}
+ .art{min-height:350px}.hero{min-height:auto}
+ section.block{padding:85px 0}
+ .heading{align-items:start;flex-direction:column;margin-bottom:35px}
+ .about-grid{grid-template-columns:1fr;gap:38px}
+ .stamp{max-width:220px}
+}
+@media(max-width:560px){
+ .wrap{width:calc(100% - 36px)}
+ .hero h1{font-size:clamp(55px,16vw,82px)}
+ .meta{font-size:8px}.meta .right{display:none}
+ .intro{font-size:14px}
+ .art{min-height:300px}
+ .projects{grid-template-columns:1fr;gap:35px}
+ .project:last-child{grid-column:auto}
+ .project-visual{height:275px}
+ .project-info h3{font-size:22px}
+ .skill-row{grid-template-columns:28px 1fr 20px;gap:12px}
+ .skill-row p{font-size:12px}
+ .about-copy h2{font-size:42px}
+ .contact-top{flex-direction:column}
+ footer{flex-wrap:wrap}
+ footer p{order:3;width:100%}
+ .footer-links{gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header id="header">
+  <a href="#home" class="brand">
+    <span class="logo">A↗</span>
+    <span class="brand-info">
+      <strong>ARYAN.</strong>
+      <small id="typing">CREATIVE DEVELOPER</small>
+    </span>
+  </a>
+  <button class="menu" id="menu" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <nav id="nav">
+    <a href="#work">Work <sup>01</sup></a>
+    <a href="#about">About <sup>02</sup></a>
+    <a href="#skills">Skills <sup>03</sup></a>
+    <a href="#faq">FAQ <sup>04</sup></a>
+    <a class="cta" href="#contact">LET'S TALK <span>↗</span></a>
+  </nav>
+</header>
+
+<main>
+<section class="hero wrap" id="home">
+  <div class="meta reveal"><span class="dot"></span> BUILDING MY DIGITAL FUTURE <span class="right">INDIA · 2026</span></div>
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow reveal">FRONTEND DEVELOPER IN PROGRESS</p>
+      <h1 class="reveal">I build things<br>for the <em>digital</em><br>world<span class="period">.</span></h1>
+      <p class="intro reveal">I'm Aryan — a student exploring web development, creative interfaces, useful software, and the world of cybersecurity.</p>
+      <div class="actions reveal">
+        <a class="btn" href="#work">EXPLORE MY WORK <span>↘</span></a>
+        <a class="link" href="#about">MY STORY <span>↗</span></a>
+      </div>
+    </div>
+    <div class="art reveal">
+      <div class="art-meta top"><span>FIG. 001</span><span>DESIGN / CODE</span></div>
+      <div class="orbit"></div><div class="orbit two"></div>
+      <div class="core"><strong>A</strong><small>ARYAN</small></div>
+      <span class="art-label one">HTML / CSS / JS</span>
+      <span class="art-label two">SECURITY MINDED</span>
+      <div class="art-meta bottom"><span>PERSONAL PORTFOLIO</span><span>EST. 2026</span></div>
+    </div>
+  </div>
+  <div class="hero-footer"><span>SCROLL TO EXPLORE</span><span class="scroll-line"></span><span>DESIGN × CODE × SECURITY</span></div>
+</section>
+
+<section class="block wrap" id="work">
+  <div class="heading reveal">
+    <div><p class="eyebrow">01 / SELECTED WORK</p><h2 class="section-title">Small steps.<br><em>Real projects.</em></h2></div>
+    <p class="note">A growing collection of experiments, concepts, and projects built while I learn.</p>
+  </div>
+  <div class="projects">
+    <article class="project reveal">
+      <div class="project-visual visual-a"><span class="project-number">PROJECT / 001</span>
+        <div class="browser"><div class="browser-top"><i></i><i></i><i></i></div><div class="browser-content"><small>MUSIC / WEB</small><strong>Find the<br>feeling.</strong><div class="fake-search">Search a track <b>↗</b></div></div></div>
+      </div>
+      <div class="project-info"><div><p class="eyebrow">WEB CONCEPT</p><h3>Music Lyrix</h3><p>A music-focused website concept exploring search, clean layouts, and lyrics discovery.</p></div><span class="arrow">↗</span></div>
+    </article>
+    <article class="project reveal">
+      <div class="project-visual visual-b"><span class="project-number">PROJECT / 002</span>
+        <div class="terminal"><div class="terminal-top"><span>SECURITY NOTES</span><span>● ● ●</span></div><p><b>01</b> &nbsp; Learn the fundamentals</p><p><b>02</b> &nbsp; Practice in safe labs</p><p><b>03</b> &nbsp; Document every lesson</p><p>_</p></div>
+      </div>
+      <div class="project-info"><div><p class="eyebrow">LEARNING LOG</p><h3>Security Journal</h3><p>A planned learning log for web security basics and responsible practice in authorized environments.</p></div><span class="arrow">↗</span></div>
+    </article>
+    <article class="project reveal">
+      <div class="project-visual visual-c"><span class="project-number">PROJECT / 003</span>
+        <div class="paper"><small>ARYAN®</small><strong>Ideas into<br>digital experiences.</strong><hr><small>PORTFOLIO / 2026</small></div>
+      </div>
+      <div class="project-info"><div><p class="eyebrow">PERSONAL BRAND</p><h3>My Portfolio</h3><p>A home for my projects, progress, experiments, and future work in development and security.</p></div><span class="arrow">↗</span></div>
+    </article>
+  </div>
+  <p class="disclaimer reveal">PROJECTS SHOWN INCLUDE CONCEPTS. UPDATE THESE DESCRIPTIONS AS YOUR PROJECTS BECOME COMPLETE.</p>
+</section>
+
+<section class="block" id="skills">
+<div class="wrap">
+  <div class="heading reveal">
+    <div><p class="eyebrow">02 / WHAT I'M LEARNING</p><h2 class="section-title">Curious by nature.<br><em>Built to improve.</em></h2></div>
+    <p class="note">My focus is learning fundamentals well and turning them into practical projects.</p>
+  </div>
+  <div class="skill-list">
+    <article class="skill-row reveal"><span class="skill-num">01</span><div><h3>Frontend development</h3><p>Responsive web pages, semantic HTML, CSS layouts, JavaScript interactions, and accessible design.</p></div><span class="skill-arrow">↗</span></article>
+    <article class="skill-row reveal"><span class="skill-num">02</span><div><h3>Interface design</h3><p>Typography, spacing, contrast, motion, and clean user experiences for the web.</p></div><span class="skill-arrow">↗</span></article>
+    <article class="skill-row reveal"><span class="skill-num">03</span><div><h3>Cybersecurity fundamentals</h3><p>Learning networking, web security, secure coding, and responsible testing in authorized practice labs.</p></div><span class="skill-arrow">↗</span></article>
+    <article class="skill-row reveal"><span class="skill-num">04</span><div><h3>Build in public</h3><p>Documenting the journey, sharing lessons, and improving through consistent small projects.</p></div><span class="skill-arrow">↗</span></article>
+  </div>
+  <div class="tags reveal"><span>HTML</span><span>CSS</span><span>JAVASCRIPT</span><span>RESPONSIVE DESIGN</span></div>
+</div>
+</section>
+
+<section class="block wrap" id="about">
+  <div class="about-grid">
+    <div class="stamp reveal"><strong>A<span style="font-size:16px;vertical-align:top">®</span></strong><small>EST. 2026</small></div>
+    <div class="about-copy reveal">
+      <p class="eyebrow">03 / A LITTLE ABOUT ME</p>
+      <h2>Not here to pretend<br>I've made it. Here to<br><em>build my way there.</em></h2>
+      <p>I'm Aryan, a student and aspiring developer from India. I enjoy building websites, experimenting with ideas, and understanding how technology works.</p>
+      <p>My long-term goal is to grow into a skilled software and cybersecurity professional. Right now, I'm focused on learning honestly, making useful projects, and sharing my progress one step at a time.</p>
+      <a class="link" href="#contact">LET'S CONNECT <span>↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq">
+<div class="wrap">
+  <div class="heading reveal">
+    <div><p class="eyebrow">04 / QUICK NOTES</p><h2 class="section-title">A few things<br><em>worth knowing.</em></h2></div>
+    <p class="note">A short introduction to my current journey and interests.</p>
+  </div>
+  <div class="faq-list">
+    <details class="reveal"><summary>What do you build with? <span>+</span></summary><p>I'm learning and building with HTML, CSS, and JavaScript, while improving responsive design, accessibility, and code quality.</p></details>
+    <details class="reveal"><summary>Are you a cybersecurity expert? <span>+</span></summary><p>Not yet. Cybersecurity is a long-term learning goal. I'm focused on fundamentals and authorized practice environments.</p></details>
+    <details class="reveal"><summary>What projects interest you? <span>+</span></summary><p>Creative websites, useful browser tools, secure software, and small projects that solve real problems.</p></details>
+    <details class="reveal"><summary>Can we collaborate? <span>+</span></summary><p>I'm open to beginner-friendly collaborations, feedback, and learning opportunities. We can discuss the scope and timeline before starting.</p></details>
+  </div>
+</div>
+</section>
+
+<section class="block wrap" id="contact">
+  <div class="contact-top reveal"><p class="eyebrow">05 / GET IN TOUCH</p><span>GOOD IDEAS START WITH A CONVERSATION.</span></div>
+  <h2 class="contact-title reveal">Have something<br>in mind? <em>Let's talk.</em></h2>
+ <a href="mailto:19863138@gmail.com">a19863138@gmail.com</a>
+  <p class="contact-note reveal">Replace this placeholder with the email address you want to publish.</p>
+</section>
+</main>
+
+<footer>
+  <a href="#home" class="footer-brand">ARYAN.</a>
+  <p>MADE WITH CURIOSITY · © <span id="year"></span> ARYAN</p>
+  <div class="footer-links"><a href="#home">BACK TO TOP ↑</a><a href="#work">WORK</a><a href="#contact">CONTACT</a></div>
+</footer>
+
+<script>
+const header=document.querySelector("#header");
+const menu=document.querySelector("#menu");
+const nav=document.querySelector("#nav");
+
+menu.addEventListener("click",()=>{
+ const open=nav.classList.toggle("open");
+ menu.setAttribute("aria-expanded",String(open));
+});
+nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+ nav.classList.remove("open");
+ menu.setAttribute("aria-expanded","false");
+}));
+document.addEventListener("click",e=>{
+ if(!nav.contains(e.target)&&!menu.contains(e.target))nav.classList.remove("open");
+});
+window.addEventListener("scroll",()=>{
+ header.classList.toggle("scrolled",window.scrollY>20);
+},{passive:true});
+document.querySelector("#year").textContent=new Date().getFullYear();
+
+/* Animated typing */
+const typing=document.querySelector("#typing");
+const words=["CREATIVE DEVELOPER","FRONTEND BUILDER","SECURITY LEARNER"];
+const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduced){
+ let w=0,i=words[0].length,del=true;
+ function type(){
+  const word=words[w];
+  i+=del?-1:1;
+  typing.textContent=word.slice(0,i);
+  let wait=del?35:70;
+  if(!del&&i===word.length){del=true;wait=1300}
+  else if(del&&i===0){del=false;w=(w+1)%words.length;wait=250}
+  setTimeout(type,wait);
+ }
+ setTimeout(type,1600);
+}
+
+/* Scroll reveal */
+const items=document.querySelectorAll(".reveal");
+if("IntersectionObserver"in window&&!reduced){
+ const observer=new IntersectionObserver((entries,obs)=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.add("visible");
+    obs.unobserve(entry.target);
+   }
+  });
+ },{threshold:.12});
+ items.forEach(item=>observer.observe(item));
+}else items.forEach(item=>item.classList.add("visible"));
+
+/* Active section links */
+const links=[...document.querySelectorAll('nav a[href^="#"]')];
+const sections=links.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+if("IntersectionObserver"in window){
+ const sectionObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+entry.target.id));
+   }
+  });
+ },{rootMargin:"-35% 0px -55% 0px"});
+ sections.forEach(s=>sectionObserver.observe(s));
+}
+</script>
+</body>
+</html>
